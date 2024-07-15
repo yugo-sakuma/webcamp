@@ -1,11 +1,11 @@
 class BooksController < ApplicationController
-
   def show
     @book = Book.find(params[:id])
   end
 
   def index
     @books = Book.all
+    @book = Book.new
   end
 
   def create
@@ -32,10 +32,10 @@ class BooksController < ApplicationController
     end
   end
 
-  def delete
+  def destroy  # deleteからdestroyに変更
     @book = Book.find(params[:id])
-    @book.destoy
-    redirect_to books_path
+    @book.destroy  # スペルミスを修正
+    redirect_to books_path, notice: "Book was successfully deleted."
   end
 
   private
