@@ -1,4 +1,9 @@
 <div class='container px-5 px-sm-0'>
+   <% if flash.now[:error] %>
+      <div class="alert alert-danger">
+        <%= flash.now[:error] %>
+      </div>
+    <% end %>
   <div class='row'>
     <div class='col-md-3'>
       <h2>User info</h2>

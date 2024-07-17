@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only: [:update, :edit]
+  before_action :ensure_correct_user, only: [:update, :show, :edit]
 
   def show
     @user = User.find_by(id: params[:id])
@@ -22,9 +22,12 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find_by(id: params[:id])
     if @user.update(user_params)
+      p 'success'
       redirect_to user_path(@user), notice: "You have updated user successfully."
     else
+      flash.now[:error] = @user.errors.full_messages
       render "edit"
     end
   end
@@ -32,7 +35,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :introduction, :profile_image)
+    params.require(:user).permit(:name, :introduction, :profile_image, :title)
   end
 
   def ensure_correct_user
