@@ -1,7 +1,7 @@
 <div class='container px-5 px-sm-0'>
-   <% if flash.now[:error] %>
+   <% if flash[:error] %>
       <div class="alert alert-danger">
-        <%= flash.now[:error] %>
+        <%= flash[:error] %>
       </div>
     <% end %>
   <div class='row'>
@@ -13,7 +13,7 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
-      <%= render 'index', books: @books%>
+      <%= render 'index', books: @books %>
     </div>
   </div>
 </div>
