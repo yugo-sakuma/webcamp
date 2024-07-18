@@ -17,6 +17,15 @@
             <% end %>
           </td>
           <td><%= link_to @book.title, @book %></td>
+          <td>
+            <% if current_user.favorites.exists?(book_id: @book.id) %>
+              <%= link_to '♡', book_favorite_path(@book), method: :delete, class: 'favorite-icon', style: 'color: red;' %>
+              <span class="favorite-icon" style="color: red;"><%= @book.favorites.count %></span>
+            <% else %>
+              <%= link_to '♡', book_favorite_path(@book), method: :post, class: 'not-favorite-icon', style: 'color: blue;' %>
+              <span class="not-favorite-icon" style="color: blue;"><%= @book.favorites.count %></span>
+            <% end %>
+          </td>
           <td><%= @book.body %></td>
           <% if current_user.id == @book.user.id %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
