@@ -25,6 +25,9 @@
             <span class="not-favorite-icon" style="color: blue;"><%= book.favorites.count %></span>
           <% end %>
         </td>
+        <td>
+          <p>コメント数: <%= book.book_comments.count %></p>
+        </td>
       </tr>
     <% end %>
   </tbody>
