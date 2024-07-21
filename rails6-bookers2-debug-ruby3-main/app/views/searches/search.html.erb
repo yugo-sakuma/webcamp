@@ -1,0 +1,42 @@
+<h1><%= @model.capitalize %> search for "<%= @content %>"</h1>
+
+<% if @records.present? %>
+  <table class='table'>
+    <thead>
+      <% if @model == 'user' %>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      <% else %>
+        <tr>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Opinion</th>
+        </tr>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @records.each do |record| %>
+        <% if @model == 'user' %>
+          <tr>
+            <td><%= image_tag record.get_profile_image, size: '50x50' %></td>
+            <td><%= record.name %></td>
+            <td><%= link_to 'Show', user_path(record) %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= link_to(record.user) do %>
+              <%= image_tag record.user.get_profile_image, size: '50x50' %>
+            <% end %></td>
+            <td><%= link_to record.title, book_path(record) %></td>
+            <td><%= record.body %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>該当する結果が見つかりませんでした。</p>
+<% end %>
