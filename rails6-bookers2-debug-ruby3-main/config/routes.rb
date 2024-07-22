@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root :to => "homes#top"
   get "home/about" => "homes#about"
   get 'search' => 'searches#search'
+  get 'sort_books', to: 'books#sort_by_likes', defaults: { format: :js }
 
   resources :books, only: [:index, :show, :edit, :create, :destroy, :update] do
     resource :favorite, only: [:create, :destroy]

@@ -10,7 +10,10 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    @books = Book.left_joins(:favorites)
+                 .group('books.id')
+                 .select('books.*, COUNT(favorites.id) AS favorites_count')
+                 .order('favorites_count DESC, books.created_at DESC')
     @book = Book.new
   end
 
@@ -44,6 +47,17 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book.destroy
     redirect_to books_path, notice: "Book was successfully deleted."
+  end
+  
+  def sort_by_likes
+   @books = Book.left_joins(:favorites)
+                 .where('favorites.created_at > ?', 1.week.ago)
+                 .group('books.id')
+                 .order('COUNT(favorites.id) DESC, books.created_at DESC')
+    p @books
+    respond_to do |format|
+      format.js { render 'index' }
+    end
   end
 
   private
