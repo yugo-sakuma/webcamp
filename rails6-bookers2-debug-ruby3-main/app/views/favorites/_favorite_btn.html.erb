@@ -1,7 +1,7 @@
 <% if current_user.favorites.exists?(book_id: book.id) %>
-  <%= link_to '♡', book_favorite_path(book), method: :delete, remote: true, class: 'favorite-icon', style: 'color: red;' %>
-  <span class="favorite-icon" style="color: red;"><%= book.favorites.count %></span>
+  <%= link_to '♡', book_favorite_path(book), method: :delete, remote: true, class: 'favorite-icon', style: 'color: red;', data: { book_id: book.id } %>
+  <span class="favorite-icon" style="color: red;" data-book-id="<%= book.id %>"><%= book.favorites.count %></span>
 <% else %>
-  <%= link_to '♡', book_favorite_path(book), method: :post, remote: true, class: 'not-favorite-icon', style: 'color: blue;' %>
-  <span class="not-favorite-icon" style="color: blue;"><%= book.favorites.count %></span>
+  <%= link_to '♡', book_favorite_path(book), method: :post, remote: true, class: 'not-favorite-icon', style: 'color: blue;', data: { book_id: book.id } %>
+  <span class="not-favorite-icon" style="color: blue;" data-book-id="<%= book.id %>"><%= book.favorites.count %></span>
 <% end %>

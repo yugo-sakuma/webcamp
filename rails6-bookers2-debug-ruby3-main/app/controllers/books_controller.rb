@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    @books = Book.with_recent_favorites_count
     @book = Book.new
   end
 
@@ -44,6 +44,13 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book.destroy
     redirect_to books_path, notice: "Book was successfully deleted."
+  end
+  
+  def sort_by_likes
+   @books = Book.with_recent_favorites_count
+    respond_to do |format|
+      format.js { render 'index' }
+    end
   end
 
   private

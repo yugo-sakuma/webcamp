@@ -1,1 +1,2 @@
-$(".favorite-btn[data-book-id='<%= @book.id %>']").html("<%= escape_javascript(render partial: 'favorites/favorite_btn', locals: { book: @book }) %>");
+$(".favorite-btn[data-book-id='<%= @book.id %>']").html("<%= j render 'favorites/favorite_btn', book: @book %>");
+$.get('<%= sort_books_path(format: :js) %>');
