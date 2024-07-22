@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     if @user
       @books = @user.books
       @book = Book.new
+      @is_mutual_follow = current_user.following?(@user) && @user.following?(current_user)
     else
       redirect_to root_path, alert: "User not found."
     end

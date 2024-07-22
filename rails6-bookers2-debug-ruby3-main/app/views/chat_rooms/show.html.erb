@@ -1,0 +1,12 @@
+<h1><%= @chat_room.users.where.not(id: current_user.id).first.name %>さんとのチャット</h1>
+
+<div id="chat_messages">
+  <% @chat_messages.each do |chat_message| %>
+    <p><strong><%= chat_message.user.name %>:</strong> <%= chat_message.content %></p>
+  <% end %>
+</div>
+
+<%= form_with(model: [ @chat_room, @chat_room.chat_messages.build ]) do |form| %>
+  <%= form.text_area :content %>
+  <%= form.submit '送信' %>
+<% end %>
